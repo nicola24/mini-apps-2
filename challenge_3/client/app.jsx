@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const title = 'My Minimal React Webpack Babel Setup';
+import Board from './Board';
 
 ReactDOM.render(
-  <div>{title}</div>,
+  <Board />,
   document.getElementById('app'),
 );
 
