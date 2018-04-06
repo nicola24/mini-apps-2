@@ -1,9 +1,29 @@
 import React from 'react';
 
+import Square from './Square';
+
 class Board extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+    };
+  }
+
   render() {
     return (
-      <h1>Hello</h1>
+      <div>
+        <Square square={this.state.board[0]} />
+      </div>
     );
   }
 }
