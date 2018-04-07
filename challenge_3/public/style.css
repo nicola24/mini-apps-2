@@ -4,6 +4,34 @@
 
 .minesweeper {
   width: 500px;
+  height: 600px;
+  border: 1px solid black;
+}
+
+.board {
+  width: 500px;
   height: 500px;
   border: 1px solid black;
+}
+
+.board-head {
+  display: flex;
+  flex-direction: row;
+  height: 55px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reset,
+.flag-count,
+.timer {
+  width: 55px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reset {
+  font-size: 20px;
 }

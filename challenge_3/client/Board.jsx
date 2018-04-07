@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Row from './Row';
 
 class Board extends React.Component {
@@ -39,29 +38,63 @@ class Board extends React.Component {
         cell.hasMine = true;
       }
     }
-    console.table(board);
+    // console.table(board);
     return board;
+  }
+
+  open(cell) {
+    const asyncCountMines = new Promise((resolve) => {
+      const mines = this.findMines(cell);
+      resolve(mines);
+    })
+
+    asyncCountMines.then((numberOfMines) => {
+      console.log(numberOfMines);
+      const rows = this.states.rows;
+      const current = rows[cell.y][cell.x];
+
+      if (current.hasMine && this.props.openCells === 0) {
+        const newRows = this.createBoard(this.props);
+        this.setState({
+          rows: newRows,
+        }, () => {
+          this.open(cell);
+        });
+      } else if (!cell.hasFlag && !current.isOpen) {
+        this.props.openCellClick();
+
+        current.isOpen = true;
+        current.count = numberOfMines;
+
+        this.setState({ rows });
+      }
+    });
+  }
+
+  findMines(cell) {
+    let minesInProximity = 0;
+    for (let row = -1; row <= 1; row += 1) {
+      for (let col = -1; col <= 1; col += 1) {
+        if (cell.y + row >= 0 && cell.x + col >= 0) {
+          if (cell.y + row < this.state.rows.length && cell.x + col < this.state.rows[0].length) {
+            if (this.state.rows[cell.y + row][cell.x + col].hasMine && !(row === 0 && col === 0)) {
+              minesInProximity += 1;
+            }
+          }
+        }
+      }
+    }
+    return minesInProximity;
   }
 
   render() {
     return (
       <div className="board">
         {this.state.rows.map((row, index) => <Row cells={row} key={index} />)}
+        <Row open={this.open} />
       </div>
     );
   }
 }
-
-Board.propTypes = {
-  rows: PropTypes.number,
-  columns: PropTypes.number,
-  mines: PropTypes.number,
-};
-
-Board.defaultProps = {
-  rows: 10,
-  columns: 10,
-  mines: 10,
-};
 
 export default Board;
