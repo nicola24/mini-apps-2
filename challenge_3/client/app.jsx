@@ -1,11 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Board from './Board';
+import Minesweeper from './Minesweeper';
 
-ReactDOM.render(
-  <Board />,
-  document.getElementById('app'),
-);
+ReactDOM.render(<Minesweeper />, document.getElementById('app'));
 
 module.hot.accept();
