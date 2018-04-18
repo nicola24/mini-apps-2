@@ -17,10 +17,10 @@ const data = {
   ],
 };
 
-const DisplayChart = ({ dataForChart }) => (
+const DisplayChart = ({ }) => (
   <div>
     <Bar
-      data={dataForChart.price_open}
+      data={data}
       width={100}
       height={50}
       options={{
